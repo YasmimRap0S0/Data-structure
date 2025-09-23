@@ -26,32 +26,7 @@ class PilhaColorida {
     public boolean isEmptyPreta() {
         return topPreta == array.length;
     }
-
-    //*  O QUE ERA FEITO NORMALMENTE
-    //*  public Object top(){
-    //*      if(isEmpty()) throw new EPilhaVazia("Pilha vazia.");
-    //*      return array[top];
-    //*  }
-    //*  
-    //*  public Object pop(){
-    //*      if(isEmpty()) throw new EPilhaVazia("Pilha vazia.");
-    //*      top--;
-    //*      return array[top + 1];
-    //*  }
-    //*  
-    //*  public void push(int x){
-    //*      if(array.length - 1 == top){ // 
-    //*          Object[] aux;
-    //*          aux = (Object[]) new Object[array.length*2]; //duplicação da array
-    //*          for(int i = 0; i <= top; i++){
-    //*              aux[i] = array[i]; //copia
-    //*          }
-    //*          array = aux;
-    //*      }
-    //*      top++;
-    //*      array[top] = x;
-    //*  }
-    //*      } //*
+ 
 
     public Object topVermelha() {
         if (isEmptyVermelha()) throw new EPilhaVazia("Pilha vermelha vazia.");
@@ -113,3 +88,29 @@ class EPilhaVazia extends RuntimeException {
         super(err);
     }
 }
+
+//*  O QUE ERA FEITO NORMALMENTE
+    //*  public Object top(){
+    //*      if(isEmpty()) throw new EPilhaVazia("Pilha vazia.");
+    //*      return array[top];
+    //*  }
+    //*  
+    //*  public Object pop(){
+    //*      if(isEmpty()) throw new EPilhaVazia("Pilha vazia.");
+    //*      top--;
+    //*      return array[top + 1];
+    //*  }
+    //*  
+    //*  public void push(int x){
+    //*      if(array.length - 1 == top){ // 
+    //*          Object[] aux;
+    //*          aux = (Object[]) new Object[array.length*2]; //duplicação da array
+    //*          for(int i = 0; i <= top; i++){
+    //*              aux[i] = array[i]; //copia
+    //*          }
+    //*          array = aux;
+    //*      }
+    //*      top++;
+    //*      array[top] = x;
+    //*  }
+    //*      } //*

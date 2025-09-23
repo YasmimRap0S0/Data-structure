@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         PilhaColorida pilha = new PilhaColorida(10);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) { //
             pilha.pushVermelha(i);
             pilha.pushPreta(i + 10);
         }
