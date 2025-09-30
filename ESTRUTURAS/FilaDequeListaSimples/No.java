@@ -1,4 +1,3 @@
-package FilaDequeListaSimples;
 
 public class No {
     private Object elemento;

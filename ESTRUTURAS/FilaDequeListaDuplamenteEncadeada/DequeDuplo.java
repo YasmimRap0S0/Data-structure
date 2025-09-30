@@ -4,11 +4,13 @@ public class DequeDuplo {
     private No inicio = null;
     private No fim = null;
 
-    // Inserir na frente
+    // Enfilerar na frente: O que considerar? 1. A exceção(fila vazia), 2. Novo nó deve ter como prox o antigo inicio, 3. inicio é novo e novo é inicio
     public void enfileirarFrente(Object x) {
         No novo = new No(x);
         if (inicio == null) {
             inicio = fim = novo;
+            System.out.println("Primeiro elemento inserido na lista(método enfileirarFrente): " + inicio.getElemento());
+
         } else {
             novo.setProximo(inicio);
             inicio.setAnterior(novo);
@@ -16,11 +18,15 @@ public class DequeDuplo {
         }
     }
 
-    // Inserir no fim
+    // Enfilerar no fim: O que considerar? 1. A exceção(fila vazia), 2. Novo nó vai ter como prox o null, 
+    // 3. o Nó-fim antigo será o penultimo elemento e precisa apontar para o novo fim
+    // 4. O Novo nó deve apontar tbm para o anterior dele(o antigo fim)
+
     public void enfileirarFim(Object x) {
         No novo = new No(x);
         if (fim == null) {
             inicio = fim = novo;
+            System.out.println("Primeiro elemento inserido na lista(método enfileirarFim): " + inicio.getElemento());
         } else {
             fim.setProximo(novo);
             novo.setAnterior(fim);
@@ -28,22 +34,40 @@ public class DequeDuplo {
         }
     }
 
-    // Remover da frente
-    public void deletarFrente() {
+    public void mostrarFrente() { //O(1). Não preciso percorrer a lista e já tá ali no começo
         if (inicio == null) {
             System.out.println("Deque vazio!");
         } else {
+            System.out.println("\nO valor do inicio: " + inicio.getElemento());
+        }
+    }
+
+    public void mostrarFim() { //O(1). O elemento já tem um ponteiro direto para o fim
+        if (fim == null) {
+            System.out.println("Deque vazio!");
+        } else {
+            System.out.println("\nO valor do fim: " + fim.getElemento());
+        }
+    }
+
+    // deletarFrente: 1. Exceção, 2. Se eu deletar inicio, eu preciso dizer que prox.elemento de inicio será meu novo inicio e que anterior == null
+    
+    public void deletarFrente() {
+        if (inicio == null) {
+            System.out.println("Deque vazio!");
+        } else if(inicio !=null) {
             System.out.println("Valor deletado da frente: " + inicio.getElemento());
             inicio = inicio.getProximo();
-            if (inicio != null) {
+            if (inicio != null) { //lista ficou vazia? não?
                 inicio.setAnterior(null);
             } else {
-                fim = null;
+                fim = null; //lista ficou vazia
             }
         }
     }
 
-    // Remover do fim
+    // deletarFim: 1. Considerar exceção,
+    
     public void deletarFim() {
         if (fim == null) {
             System.out.println("Deque vazio!");
