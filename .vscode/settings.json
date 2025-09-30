@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "EXERCÍCIOS",
+        "ESTRUTURAS/Pilha",
+        "ESTRUTURAS/FilaDequeListaSimples",
+        "ESTRUTURAS/Fila-Deque-ListaSimples",
+        "ESTRUTURAS"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+}
