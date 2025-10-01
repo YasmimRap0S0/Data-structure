@@ -52,32 +52,38 @@ public class DequeDuplo {
 
     // deletarFrente: 1. Exceção, 2. Se eu deletar inicio, eu preciso dizer que prox.elemento de inicio será meu novo inicio e que anterior == null
     
+    
     public void deletarFrente() {
         if (inicio == null) {
-            System.out.println("Deque vazio!");
+            System.out.println("Deque vazio");
         } else if(inicio !=null) {
-            System.out.println("Valor deletado da frente: " + inicio.getElemento());
+            System.out.println("Valor será deletado da frente: " + inicio.getElemento());
             inicio = inicio.getProximo();
             if (inicio != null) { //lista ficou vazia? não?
                 inicio.setAnterior(null);
             } else {
                 fim = null; //lista ficou vazia
+                System.out.println("Lista ficou vazia por conta do deletarFrente. Era o unico elemento");
+
             }
         }
     }
 
-    // deletarFim: 1. Considerar exceção,
+    // deletarFim: 1. Considerar exceção, 2. Pra deletar fim, o penultimo elemento precisa se tornar fim e apontar para null
     
     public void deletarFim() {
         if (fim == null) {
-            System.out.println("Deque vazio!");
+            System.out.println("Deque vazio");
         } else {
-            System.out.println("Valor deletado do fim: " + fim.getElemento());
-            fim = fim.getAnterior();
+            System.out.println("Valor será deletado do fim: " + fim.getElemento());
+            fim = fim.getAnterior(); 
             if (fim != null) {
                 fim.setProximo(null);
             } else {
                 inicio = null;
+                System.out.println("Lista ficou vazia por conta do deletarFim. ");
+
+
             }
         }
     }
