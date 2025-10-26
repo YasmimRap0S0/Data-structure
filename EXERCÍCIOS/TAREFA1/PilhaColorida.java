@@ -24,12 +24,16 @@ class PilhaColorida {
     }
 
     public boolean isEmptyVermelha() {
-        if (topVermelha == -1) return true;
+        if (topVermelha == -1) {
+            return true;
+        }
         return false;
     }
 
     public boolean isEmptyPreta() {
-        if (topPreta == array.length) return true;
+        if (topPreta == array.length) {
+            return true;
+        }
         return false; //topPreta == size, significa que quando eu for inserir o primeiro elemento, ele estará na posicao size-1
     }
 
@@ -43,61 +47,90 @@ class PilhaColorida {
         return array[topPreta]; 
     }
 
-
-    //pop retira o elemento do topo e topo tá onde? mais a direta da pilha vermelha
-    public Object popVermelha() {
-        if (isEmptyVermelha()) throw new EPilhaVazia("Pilha vermelha vazia.");
-        Object elemento = array[topVermelha];
-        array[topVermelha--] = null; 
-        verificarReducao();
-        return elemento;
-    }
-
-    //faz o contrario, topPreta tá mais a esquerda da pilha preta
-    public Object popPreta() {
-        if (isEmptyPreta()) throw new EPilhaVazia("Pilha preta vazia.");
-        Object elemento = array[topPreta];
-        array[topPreta++] = null;
-        verificarReducao();
-        return elemento;
-    }
-
-    //e se o prox indice da pilha vermelha for o mesmo da preta?
-
     public void pushVermelha(Object x) {
-        if (topVermelha + 1 == topPreta) duplicar(array.length * 2);
-        array[++topVermelha] = x;
+        if (topVermelha + 1 == topPreta){
+            duplicar();
+        } 
+        topVermelha++;
+        array[topVermelha] = x;
     }
 
     public void pushPreta(Object x) {
-        if (topVermelha + 1 == topPreta) duplicar(array.length * 2);
-        array[--topPreta] = x; //apenas decrementamos já que insere da direita p/ esquerda
+        if (topPreta - 1 == topVermelha){
+            duplicar();
+        }
+        topPreta--;
+        array[topPreta] = x; 
     }
 
-    private void duplicar(int novoTam) {
-        Object[] aux = new Object[novoTam]; //cria array auxiliar
-        for (int i = 0; i <= topVermelha; i++) {
-            aux[i] = array[i]; //copia elem.vermelhos
-        }
-
-        //como realocar o indice do preto?Ex.: topPreta tá na posicao 8, array.length é 10, novoTam é 20
-        //topPreta deve ir para a posicao 18... ent, eu descubro quantos elementos tem na pilha preta velha e realoco pra definir topPreta nova
+    public Object popVermelha() {
+        if (isEmptyVermelha()) throw new EPilhaVazia("Pilha vermelha vazia.");
+        reduzir();
+        Object elemento = array[topVermelha];
+        array[topVermelha] = null;
+        topVermelha--;
+        return elemento;
         
-        int topPretanova = novoTam - (array.length - topPreta); 
-        for (int i = topPreta; i < array.length; i++) {
-            aux[topPretanova + i - topPreta] = array[i];
+    }
+
+    public Object popPreta() {
+        if (isEmptyPreta()) throw new EPilhaVazia("Pilha preta vazia.");
+        reduzir();
+        Object elemento = array[topPreta];
+        array[topPreta] = null;
+        topPreta++;
+        return elemento;
+        
+    }
+
+    private void duplicar() {
+        Object[] aux = new Object[array.length*2];
+        for(int i = 0; i <= topVermelha; i++){
+            aux[i] = array[i]; //ele.vermelho
+        };
+        int qtdPreta = sizePreta();
+        
+        int topPretanova = aux.length - qtdPreta;
+        for (int i = topPretanova; i < aux.length; i++) {
+            aux[i] = array[topPreta];
+            topPreta++;
+     }
+    topPreta = topPretanova;
+    array = aux;
+};
+
+    // se tenho qtd X de elem na array com capacidade pra 10 e ela tem 1/3 ou 1/4 apenas de utilizaçõa, reduz
+
+    private void reduzir() {
+        int qtdElem = sizePreta() + sizeVermelha();
+        if  ((float) qtdElem / array.length <= (float) 1/3) {
+
+         
+            Object[] aux = new Object[array.length/2];
+            for(int i = 0; i <= topVermelha; i++){
+                aux[i] = array[i]; //ele.vermelho
+            };
+            int qtdPreta = sizePreta();
+            
+            int topPretanova = aux.length - qtdPreta;
+            for (int i = topPretanova; i < aux.length; i++) {
+                aux[i] = array[topPreta];
+                topPreta++;
         }
         topPreta = topPretanova;
-        array = aux; //copiar toda a array auxiliar para a original
+        array = aux;
     }
+};
 
-    //pra reduzir... 1/3 do array em uso
-    //e se minha array for de tamanho 1? ai n da pra reduzir a array mais, ent... apenas reduzo se for maior que 1
-
-    private void verificarReducao() {
-        int totalArray = (topVermelha + 1) + (array.length - topPreta);
-        if (totalArray <= array.length / 3 && array.length > 1) duplicar(array.length / 2); //Dá pra reutilizar o método duplicar pq ele faz a realocação dos elementos
+    public void ver() {
+    System.out.print("Array atual:");
+    for (int i = 0; i < array.length; i++) {
+        System.out.print(array[i] + " ");
     }
+    System.out.println();
+}
+
+
 
 class EPilhaVazia extends RuntimeException {
     public EPilhaVazia(String err) {
