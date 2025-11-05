@@ -25,7 +25,7 @@ class Vetor {
             throw new ErrorVetor("Não existe esse indice.");
         }
 
-        System.out.println("O elemento da posição " + r + " é " + "array[r]");
+        System.out.println("O elemento da posição " + r + " é " + array[r]);
         imprimir();
 
         return array[r];
