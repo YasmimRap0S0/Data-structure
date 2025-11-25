@@ -1,4 +1,4 @@
-package TAREFA1;
+package EXERCICIOS.TAREFA1;
 
 // Da esquerda p/ direita  é vermelho e t == -1
 // Da direita para esquerda é preto e t = size
