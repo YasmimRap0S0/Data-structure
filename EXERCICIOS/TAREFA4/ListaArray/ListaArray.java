@@ -3,7 +3,7 @@ package EXERCICIOS.TAREFA4.ListaArray;
 
 public class ListaArray {
     private Object[] array;
-    private int tam = 0;
+    private int qtd_elem = 0;
 
 
     public ListaArray(int capacidade) {
@@ -12,12 +12,12 @@ public class ListaArray {
 
 
     public int size() {
-        return tam;
+        return qtd_elem;
     }
 
 
     public boolean isEmpty() {
-        if (tam == 0) return true;
+        if (qtd_elem == 0) return true;
         return false;
     }
 
@@ -32,9 +32,9 @@ public class ListaArray {
 
     public Object last() {
         if (isEmpty()) throw new ErrorLista("Lista tá vazia");
-        System.out.println("Elemento last é " + array[tam-1]);
+        System.out.println("Elemento last é " + array[qtd_elem-1]);
         mostrar();
-        return array[tam - 1];
+        return array[qtd_elem - 1];
     }
 
 
@@ -44,7 +44,7 @@ public class ListaArray {
 
 
     public Object before(int r) {
-        if (r <= 0 || r >= tam) throw new ErrorLista("Não tem elemento anterior");
+        if (r <= 0 || r >= qtd_elem) throw new ErrorLista("Não tem elemento anterior");
         System.out.println("Elemento anterior ao indice " + r + " é " + array[r-1]);
         mostrar();
         return array[r - 1];
@@ -55,7 +55,7 @@ public class ListaArray {
 
 
     public Object after(int r) {
-        if (r < 0 || r >= tam - 1) throw new ErrorLista("Sem elemento seguinte");
+        if (r < 0 || r >= qtd_elem - 1) throw new ErrorLista("Sem elemento seguinte");
         System.out.println("Elemento posterior ao indice " + r + " é " + array[r+1]);
         mostrar();
         return array[r + 1];
@@ -68,21 +68,19 @@ public class ListaArray {
     colocação r por o e retorna o
     antigo elemento */
 
-
-    public Object replaceElement(int r, Object o) {
-        if (r < 0 || r >= tam) throw new ErrorLista("Índice inválido");
-        Object antigo = array[r];
-
-
-        array[r] = o;
-        System.out.println("Troca elemento " + antigo + " por " + array[r]);
-        mostrar();
-        return antigo;
+  public void replaceElement(Object p, Object o){ //o valor do elemento do objeto O se torna o valor do elemento do objeto P
+        int posicao = -1;
+        for(int i = 0; i < tam; i++){
+            if(array[i] == o){
+                posicao = i;
+            } 
+        }
+        if(posicao != -1) array[posicao] = p;
     }
 
 
-    public void swapElements(int a, int b) {
-        if (a < 0 || a >= tam || b < 0 || b >= tam) throw new ErrorLista("Índice inválido");
+  /*  public void swapElements(int a, int b) {
+        if (a < 0 || a >= qtd_elem || b < 0 || b >= qtd_elem) throw new ErrorLista("Índice inválido");
         Object elem = array[a];
         array[a] = array[b];
         array[b] = elem;
@@ -94,14 +92,14 @@ public class ListaArray {
     public void insertBefore(int r, Object o) {
         System.out.println("Antes do insertBefore: ");
         mostrar();
-        if (r < 0 || r >= tam || tam == array.length) throw new ErrorLista("Índice inválido ou Lista Cheia");
+        if (r < 0 || r >= qtd_elem || qtd_elem == array.length) throw new ErrorLista("Índice inválido ou Lista Cheia");
 
 
-        for (int i = tam - 1; i >= r; i--) {
+        for (int i = qtd_elem - 1; i >= r; i--) {
             array[i + 1] = array[i];
         }
         array[r] = o;
-        tam++;
+        qtd_elem++;
         System.out.println("insertBefore: " + array[r]);
         mostrar();
 
@@ -112,30 +110,31 @@ public class ListaArray {
     public void insertAfter(int r, Object o) {
         System.out.println("Antes do insertAfter: ");
         mostrar();
-        if (r < 0 || r >= tam || tam == array.length) throw new ErrorLista("Índice inválido ou Lista Cheia");
-        for (int i = tam - 1; i >= r + 1; i--) {
+        if (r < 0 || r >= qtd_elem || qtd_elem == array.length) throw new ErrorLista("Índice inválido ou Lista Cheia");
+        for (int i = qtd_elem - 1; i >= r + 1; i--) {
             array[i + 1] = array[i];
         }
         array[r + 1] = o;
-        tam++;
+        qtd_elem++;
         System.out.println("insertAfter: " + array[r+1]);
         mostrar();
 
 
     }
+    */
 
 
     public void insertFirst(Object o) {
         System.out.println("Antes do insertFirst: ");
         mostrar();
-        if (tam == array.length) throw new ErrorLista("Lista cheia");
+        if (qtd_elem == array.length) throw new ErrorLista("Lista cheia");
 
 
-        for (int i = tam - 1; i >= 0; i--) {
+        for (int i = qtd_elem - 1; i >= 0; i--) {
             array[i + 1] = array[i];
         }
         array[0] = o;
-        tam++;
+        qtd_elem++;
         System.out.println("insertFirst: " + array[0]);
         mostrar();
     }
@@ -144,12 +143,12 @@ public class ListaArray {
     public void insertLast(Object o) {
         System.out.println("Antes do insertLast: ");
         mostrar();
-        if (tam == array.length) throw new ErrorLista("Lista cheia");
+        if (qtd_elem == array.length) throw new ErrorLista("Lista cheia");
 
 
-        array[tam] = o;
-        tam++;
-        System.out.println("insertLast: " + array[tam]);
+        array[qtd_elem] = o;
+        qtd_elem++;
+        System.out.println("insertLast: " + array[qtd_elem]);
         mostrar();
     }
 
@@ -158,24 +157,32 @@ public class ListaArray {
     colocação r */
 
 
-    public Object remove(int r) {
-        if (r < 0 || r >= tam) throw new ErrorLista("Índice inválido");
-        Object removido = array[r];
-        for (int i = r; i < tam - 1; i++) {
+   public Object remove(Object o) {
+        int posicao = -1;
+        for (int i = 0; i < qtd_elem; i++) {
+            if (array[i].equals(o)) {
+                posicao = i;
+                break;
+            }
+        }
+        if (posicao == -1) throw new ErrorLista("Elemento não encontrado");
+
+        Object removido = array[posicao];
+        for (int i = posicao; i < qtd_elem - 1; i++) {
             array[i] = array[i + 1];
         }
-        array[tam - 1] = null;
-        tam--;
+        array[qtd_elem - 1] = null;
+        qtd_elem--;
         System.out.println("Removendo " + removido);
         mostrar();
         return removido;
-    }
+}
 
 
    
     public void mostrar() {
         System.out.print("Lista atual: ");
-        for (int i = 0; i < tam; i++) {
+        for (int i = 0; i < qtd_elem; i++) {
             System.out.print(array[i] + " ");
         }
         System.out.println();

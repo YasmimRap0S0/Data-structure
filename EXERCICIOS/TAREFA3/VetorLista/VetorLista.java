@@ -1,11 +1,12 @@
 
 package EXERCICIOS.TAREFA3.Vetorlista;
 
-class Vetor{
-    private No inicio, fim;
+class VetorLista{
+    private No inicio;
+    private No fim;
     private int qtd_elem = 0;
  
-    public Vetor(){
+    public VetorLista(){
         inicio = null;
         fim = null;
     }
@@ -23,7 +24,9 @@ class Vetor{
     r, sem removê-lo */
 
     public Object elemAtRank(Integer r){
-        if(r == 0) return inicio.getElemento();
+        if(r == 0){
+            return inicio.getElemento();
+        } 
         else if( r < qtd_elem){
             No aux = inicio;
             for(int j = 0; j < r; j++){
@@ -81,23 +84,36 @@ class Vetor{
     colocação r */
 
     public Object removeAtRank(Integer r){
-        if(r < qtd_elem && qtd_elem != 0){
-            No removido = new No(null); 
-            removido = inicio;
-            for(int j = 0; j < r; j++){
-                removido = removido.getProximo();
-            }
-            Object elem = removido.getElemento();
-            No aux1 = new No(null);
-            aux1 = removido.getAnterior();
-            No aux2 = new No(null);
-            aux2 = removido.getProximo();
-            aux1.setProximo(aux2);
-            aux2.setAnterior(aux1);
-            qtd_elem--;
-            return elem;
+        
+        if (r < 0 || r >= qtd_elem || qtd_elem == 0) {
+            throw new ErrorVetor("Não há elemento nesse índice para ser removido.");
         }
-        else throw new ErrorVetor("Índice inválido ou lista vazia.");
+
+        No removido = inicio;
+        for (int j = 0; j < r; j++) {
+            removido = removido.getProximo();
+        }
+
+        Object elem = removido.getElemento();
+        No anterior = removido.getAnterior();
+        No proximo = removido.getProximo();
+
+        if (anterior != null) {
+            anterior.setProximo(proximo);
+        } else {
+            inicio = proximo;
+        }
+
+        if (proximo != null) {
+            proximo.setAnterior(anterior);
+        } else {
+            fim = anterior;
+        }
+
+        qtd_elem--;
+        System.out.println("Removido elemento " + elem + " da posição " + r);
+        mostrar();
+        return elem;
     }
 
     

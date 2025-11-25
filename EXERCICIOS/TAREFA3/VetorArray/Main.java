@@ -24,7 +24,7 @@ public class Main {
         vetor.replaceAtRank(2, "R");
         vetor.elemAtRank(1);
 
-        vetor.removeAtRank(1);
+        vetor.removeAtRank(0);
         
 
         vetor.size();

@@ -1,8 +1,8 @@
-package EXERCICIOS.TAREFA3.VetorArray;
+package EXERCICIOS.TAREFA3.VetorLista;
 
 public class Main {
     public static void main(String[] args) {
-        Vetor vetor = new Vetor(5);
+        VetorLista vetor = new VetorLista(5);
 
         System.out.println("Vetor está vazio? " + vetor.isEmpty());
         System.out.println("Qtd de elementos é " + vetor.size());
@@ -24,7 +24,7 @@ public class Main {
         vetor.replaceAtRank(2, "R");
         vetor.elemAtRank(1);
 
-        vetor.removeAtRank(1);
+        vetor.removeAtRank(0);
         
 
         vetor.size();
