@@ -2,7 +2,7 @@ package EXERCICIOS.TAREFA3.VetorArray;
 
 public class Main {
     public static void main(String[] args) {
-        VetorArray vetor = new VetorArray(5);
+        Vetor vetor = new Vetor(5);
 
         System.out.println("Vetor está vazio? " + vetor.isEmpty());
         System.out.println("Qtd de elementos é " + vetor.size());
@@ -29,7 +29,5 @@ public class Main {
 
         vetor.size();
         vetor.isEmpty();
-
-        
     }
 }
